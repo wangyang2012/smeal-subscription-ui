@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SubscriptionService} from '../service/subscription.service';
+import {KeyValue} from "../model/KeyValue";
 
 @Component({
   selector: 'app-create-subscription',
@@ -18,7 +19,7 @@ export class CreateSubscriptionComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const cartId = params['cartId'];
       console.log('cartId: ' + cartId);
-      this.subscriptionService.getCart(cartId).subscribe((response) => {
+      this.subscriptionService.getCart(cartId).subscribe((response: KeyValue) => {
         console.log("response: " + response.value);
         this.cart = response.value;
       });
