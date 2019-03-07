@@ -5,7 +5,7 @@ import {KeyValue} from '../model/KeyValue';
 
 @Injectable()
 export class SubscriptionService {
-  private url = 'http://localhost:9090';
+  private url = 'http://54.38.189.20:8080/subscription';
   constructor(private http: HttpClient) { }
 
   getCart(cartId: number) {
@@ -13,8 +13,5 @@ export class SubscriptionService {
   }
   getCustomer(customerId: number) {
     return this.http.get<KeyValue>(this.url + '/customer/' + customerId);
-  }
-  test() {
-    return this.http.get('https://jsonplaceholder.typicode.com/todos/1');
   }
 }
