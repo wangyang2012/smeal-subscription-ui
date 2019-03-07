@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SubscriptionService} from '../service/subscription.service';
-import {KeyValue} from "../model/KeyValue";
+import {KeyValue} from '../model/KeyValue';
 
 @Component({
   selector: 'app-create-subscription',
@@ -11,6 +11,7 @@ import {KeyValue} from "../model/KeyValue";
 export class CreateSubscriptionComponent implements OnInit {
 
   private cart: string;
+  private customer: string;
 
   constructor(private route: ActivatedRoute, private subscriptionService: SubscriptionService) { }
 
@@ -22,6 +23,13 @@ export class CreateSubscriptionComponent implements OnInit {
       this.subscriptionService.getCart(cartId).subscribe((response: KeyValue) => {
         console.log("response: " + response.value);
         this.cart = response.value;
+      });
+
+      const customerId = params['customerId'];
+      console.log('customerId: ' + customerId);
+      this.subscriptionService.getCustomer(customerId).subscribe((response: KeyValue) => {
+        console.log("response: " + response.value);
+        this.customer = response.value;
       });
 
       // this.subscriptionService.test().subscribe(response => console.log(response));
