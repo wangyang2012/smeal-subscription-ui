@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SubscriptionService} from '../service/subscription.service';
 import {KeyValue} from '../model/KeyValue';
+import {StripeScriptTag, StripeToken} from "stripe-angular";
 
 @Component({
   selector: 'app-create-subscription',
@@ -12,8 +13,13 @@ export class CreateSubscriptionComponent implements OnInit {
 
   private cart: string;
   private customer: string;
+  private publishableKey = 'pk_test_ghenbt4wGKIXtmvhdHoSlUKk';
+  private token = '';
 
-  constructor(private route: ActivatedRoute, private subscriptionService: SubscriptionService) { }
+  constructor(private route: ActivatedRoute, private subscriptionService: SubscriptionService, public stripeScriptTag: StripeScriptTag) {
+    this.stripeScriptTag.setPublishableKey( this.publishableKey );
+    console.log('set publishableKey');
+  }
 
   ngOnInit() {
     console.log('CreateSubscription');
@@ -36,4 +42,31 @@ export class CreateSubscriptionComponent implements OnInit {
     });
   }
 
+  // function createSubscription() {
+  //
+  // }
+
+  extraData = {
+    'name': 'Yang',
+    'address_city': 'Paris',
+    'address_line1': '1, rue ABC',
+    'address_line2': '',
+    'address_state': '',
+    'address_zip': '75001'
+  }
+
+  onStripeInvalid( error: Error ){
+    console.log('Validation Error', error);
+  }
+
+  setStripeToken( token: StripeToken){
+    console.log('Stripe token', token);
+    this.subscriptionService.createSubscription(token.id).subscribe(response => {
+      alert('Paiement réussi!');
+    });
+  }
+
+  onStripeError( error: Error ){
+    console.error('Stripe error', this.token);
+  }
 }

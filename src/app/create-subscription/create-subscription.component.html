@@ -1,9 +1,27 @@
 <div>
-  create-subscription works!
-
   <h1>CUSTOMER</h1>
   {{customer}}
 
   <h1>CART</h1>
   {{cart}}
 </div>
+
+<!--<button (click)="createSubscription()">S'abonner</button>-->
+
+
+
+
+<div *ngIf="invalidError" style="color:red">
+  {{ invalidError.message }}
+</div>
+
+<h2>Veuillez saisir les coordonnées bancaires </h2>
+<stripe-card
+  #stripeCard
+  (catch) = "onStripeError($event)"
+  [(invalid)] = "invalidError"
+  (tokenChange) = "setStripeToken($event)"
+></stripe-card>
+
+<button type="button" (click)="stripeCard.createToken(extraData)">Valider</button>
+

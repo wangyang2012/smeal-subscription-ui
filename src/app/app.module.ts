@@ -6,6 +6,7 @@ import { CreateSubscriptionComponent } from './create-subscription/create-subscr
 import {AppRoutingModule} from './app-routing.module';
 import {SubscriptionService} from './service/subscription.service';
 import {HttpClientModule} from '@angular/common/http';
+import { Module as StripeModule } from 'stripe-angular';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StripeModule.forRoot()
   ],
 
   providers: [SubscriptionService],
