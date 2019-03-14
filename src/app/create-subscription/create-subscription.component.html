@@ -1,15 +1,15 @@
 <div>
   <h1>CUSTOMER</h1>
-  {{customer}}
+  {{customer.id}} - {{customer.firstName}} - {{customer.lastName}} - {{customer.email}}
 
   <h1>CART</h1>
-  {{cart}}
+  id: {{cart.id}}
+  idCustomer: {{cart.idCustomer}}
+  total TTC: {{cart.totalTtc}}
+  <span *ngFor="let product of cart.products">
+    <div>{{product.id}} - {{product.reference}} - {{product.priceTtc}}</div>
+  </span>
 </div>
-
-<!--<button (click)="createSubscription()">S'abonner</button>-->
-
-
-
 
 <div *ngIf="invalidError" style="color:red">
   {{ invalidError.message }}

@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/index';
 import {HttpClient} from '@angular/common/http';
-import {KeyValue} from '../model/KeyValue';
+import {Customer} from '../model/Customer';
+import {Cart} from '../model/Cart';
+import {Subscription} from '../model/Subscription';
 
 @Injectable()
 export class SubscriptionService {
@@ -10,13 +11,13 @@ export class SubscriptionService {
   constructor(private http: HttpClient) { }
 
   getCart(cartId: number) {
-    return this.http.get<KeyValue>(this.url + '/cart/' + cartId);
+    return this.http.get<Cart>(this.url + '/cart/' + cartId);
   }
   getCustomer(customerId: number) {
-    return this.http.get<KeyValue>(this.url + '/customer/' + customerId);
+    return this.http.get<Customer>(this.url + '/customer/' + customerId);
   }
 
-  createSubscription(token: string) {
-    return this.http.post<string>(this.url + '/subscription/create', token);
+  createSubscription(sub: Subscription) {
+    return this.http.post<string>(this.url + '/subscription/create', sub);
   }
 }

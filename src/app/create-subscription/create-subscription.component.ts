@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SubscriptionService} from '../service/subscription.service';
-import {KeyValue} from '../model/KeyValue';
-import {StripeScriptTag, StripeToken} from "stripe-angular";
+import {StripeScriptTag, StripeToken} from 'stripe-angular';
+import {Customer} from '../model/Customer';
+import {Cart} from '../model/Cart';
+import {Subscription} from '../model/Subscription';
 
 @Component({
   selector: 'app-create-subscription',
@@ -11,8 +13,8 @@ import {StripeScriptTag, StripeToken} from "stripe-angular";
 })
 export class CreateSubscriptionComponent implements OnInit {
 
-  private cart: string;
-  private customer: string;
+  private cart: Cart = new Cart();
+  private customer: Customer = new Customer();
   private publishableKey = 'pk_test_ghenbt4wGKIXtmvhdHoSlUKk';
   private token = '';
 
@@ -22,20 +24,15 @@ export class CreateSubscriptionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('CreateSubscription');
     this.route.queryParams.subscribe(params => {
       const cartId = params['cartId'];
-      console.log('cartId: ' + cartId);
-      this.subscriptionService.getCart(cartId).subscribe((response: KeyValue) => {
-        console.log("response: " + response.value);
-        this.cart = response.value;
+      this.subscriptionService.getCart(cartId).subscribe((response: Cart) => {
+        this.cart = response;
       });
 
       const customerId = params['customerId'];
-      console.log('customerId: ' + customerId);
-      this.subscriptionService.getCustomer(customerId).subscribe((response: KeyValue) => {
-        console.log("response: " + response.value);
-        this.customer = response.value;
+      this.subscriptionService.getCustomer(customerId).subscribe((response: Customer) => {
+        this.customer = response;
       });
 
       // this.subscriptionService.test().subscribe(response => console.log(response));
@@ -55,13 +52,18 @@ export class CreateSubscriptionComponent implements OnInit {
     'address_zip': '75001'
   }
 
-  onStripeInvalid( error: Error ){
+  onStripeInvalid( error: Error ) {
     console.log('Validation Error', error);
   }
 
-  setStripeToken( token: StripeToken){
+  setStripeToken( token: StripeToken) {
     console.log('Stripe token', token);
-    this.subscriptionService.createSubscription(token.id).subscribe(response => {
+    const sub = new Subscription();
+    sub.email = this.customer.email;
+    sub.productPrice = this.cart.totalTtc.replace(',', '');
+    sub.userName = this.customer.firstName + ' ' + this.customer.lastName;
+    sub.stripeToken = token.id;
+    this.subscriptionService.createSubscription(sub).subscribe(response => {
       alert('Paiement réussi!');
     });
   }
