@@ -1,9 +1,13 @@
 <div>
   <h1>CUSTOMER</h1>
-  {{customer}}
+  {{customer.id}} - {{customer.firstName}} - {{customer.lastName}} - {{customer.email}}
 
   <h1>CART</h1>
-  {{cart}}
+  id: {{cart.id}}
+  idCustomer: {{cart.idCustomer}}
+  <span *ngFor="let cart of cart.products">
+    {{product.id}}
+  </span>
 </div>
 
 <!--<button (click)="createSubscription()">S'abonner</button>-->
