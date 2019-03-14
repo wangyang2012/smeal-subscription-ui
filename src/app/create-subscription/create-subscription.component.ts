@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SubscriptionService} from '../service/subscription.service';
-import {KeyValue} from '../model/KeyValue';
-import {StripeScriptTag, StripeToken} from "stripe-angular";
-import {Customer} from "../model/Customer";
+import {StripeScriptTag, StripeToken} from 'stripe-angular';
+import {Customer} from '../model/Customer';
 import {Cart} from '../model/Cart';
+import {Subscription} from '../model/Subscription';
 
 @Component({
   selector: 'app-create-subscription',
@@ -52,13 +52,18 @@ export class CreateSubscriptionComponent implements OnInit {
     'address_zip': '75001'
   }
 
-  onStripeInvalid( error: Error ){
+  onStripeInvalid( error: Error ) {
     console.log('Validation Error', error);
   }
 
-  setStripeToken( token: StripeToken){
+  setStripeToken( token: StripeToken) {
     console.log('Stripe token', token);
-    this.subscriptionService.createSubscription(token.id).subscribe(response => {
+    const sub = new Subscription();
+    sub.email = this.customer.email;
+    sub.productPrice = this.cart.totalTtc.replace(',', '');
+    sub.userName = this.customer.firstName + ' ' + this.customer.lastName;
+    sub.stripeToken = token.id;
+    this.subscriptionService.createSubscription(sub).subscribe(response => {
       alert('Paiement réussi!');
     });
   }

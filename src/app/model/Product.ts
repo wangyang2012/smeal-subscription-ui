@@ -1,6 +1,6 @@
 export class Product {
   id: number;
   reference: string;
-  price: number;
-  tax: number;
+  priceHt: number;
+  priceTtc: number;
 }

@@ -5,15 +5,11 @@
   <h1>CART</h1>
   id: {{cart.id}}
   idCustomer: {{cart.idCustomer}}
-  <span *ngFor="let cart of cart.products">
-    {{product.id}}
+  total TTC: {{cart.totalTtc}}
+  <span *ngFor="let product of cart.products">
+    <div>{{product.id}} - {{product.reference}} - {{product.priceTtc}}</div>
   </span>
 </div>
-
-<!--<button (click)="createSubscription()">S'abonner</button>-->
-
-
-
 
 <div *ngIf="invalidError" style="color:red">
   {{ invalidError.message }}
