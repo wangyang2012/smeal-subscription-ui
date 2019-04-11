@@ -1,1 +1,187 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggler closed boot" data-target="#main-menu" aria-expanded="false">
+                <span class="icon-bar bar1"></span>
+                <span class="icon-bar bar2"></span>
+                <span class="icon-bar bar3"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img class="logo" src="https://www.smeal.fr/themes/smeal/assets/img/Logo-Smeal.png" alt="Logo Smeal" height="100%"></a>
+        </div>
+        <div class="bg-light row" id="main-menu">
+            <ul class="navbar-nav">
+                <li class="nav-item title d-flex d-md-none align-items-center justify-content-end"><span>MENU</span></li>
+                <li class="nav-item mt-1"><a class="nav-link" href="https://www.smeal.fr/">ACCUEIL</a></li>
+                <li class="nav-item mt-1"><a class="nav-link" href="https://www.smeal.fr/nos-repas">NOS REPAS</a></li>
+                <li class="nav-item mt-1"><a class="nav-link" href="https://www.smeal.fr/qui-est-smeal">QUI EST SMEAL ?</a></li>
+                <li class="nav-item mt-1"><a class="nav-link" href="https://www.smeal.fr/blog/">BLOG</a></li>
+                <li class="nav-item show-in-pc"><a href="https://www.smeal.fr/commander" class="btn btn-primary btn-primary-commander ml-3" style="border-width: 0px">LA BOUTIQUE</a></li>
+                <li class="nav-item d-md-none show-in-pc">
+                    <img src="https://www.smeal.fr/themes/smeal/assets/img/iconmonstr-user.png" alt="Logo Smeal">
+                    <div class="login d-flex flex-column justify-content-center">
+                        <a href="https://www.smeal.fr/mon-compte" class="nav-link">MON COMPTE</a>
+                        <a href="https://www.smeal.fr/index.php?mylogout" class="nav-link">Se déconnecter</a>
+                    </div>
+                </li>
+                <li class="nav-item mt-1 show-in-mobile">
+                    <a href="https://www.smeal.fr/mon-compte" class="nav-link">MON COMPTE</a>
+                    <a href="https://www.smeal.fr/index.php?mylogout" class="nav-link">Se déconnecter</a>
+                </li>
+                <li class="show-in-mobile mt-2 align-center"><a href="https://www.smeal.fr/commander" class="btn btn-primary btn-primary-commander">COMMANDER</a></li>
+            </ul>
+        </div>
+        <ul>
+            <li class="nav-item d-none d-md-inline-block mx-1"><a href="https://www.smeal.fr/mon-compte"><img src="https://www.smeal.fr/themes/smeal/assets/img/iconmonstr-user.png" alt="Logo Smeal"></a></li>
+            <li class="cart-button nav-item d-md-inline-block mx-1"><div id="_desktop_cart">
+                <div class="blockcart cart-preview active" data-refresh-url="//www.smeal.fr/module/ps_shoppingcart/ajax">
+                    <div class="header">
+                        <a rel="nofollow" href="//www.smeal.fr/panier?action=show">
+                            <img src="https://www.smeal.fr/themes/smeal/assets/img/cart.png" alt="Panier">
+                            <span class="cart-products-count">2</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </li>
+        </ul>
+        <div id="cart-display" class="row">
+            <ul class="col-12">
+                <li class="title">MON PANIER
+                    <button type="button" class="navbar-toggler open">
+                        <span class="icon-bar bar1"></span>
+                        <span class="icon-bar bar2"></span>
+                        <span class="icon-bar bar3"></span>
+                    </button>
+                </li>
+                <li class="cart-items">
+                    <ul>
+                        <li class="loader"></li>
+                        <li class="item no-item">Il n'y a pas d'articles dans votre panier</li>
+                    </ul>
+                </li>
+                <li class="cart-footer col-12">
+                    <div class="spacer"></div>
+                    <h3><span>TOTAL :</span><span class="total-price-value">0,00€</span></h3>
+                    <a class="btn btn-primary" href="https://www.smeal.fr/panier?action=show">COMMANDER</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="main-body">
 <router-outlet></router-outlet>
+</div>
+
+
+<footer id="footer">
+
+    <footer class="wave wave3">
+        <div class="social pb-4">
+            <div class="container">
+                <h2>Suivez l'aventure Smeal !</h2>
+                <form action="//smeal.us12.list-manage.com/subscribe/post?u=8511147185b695bdad8e37930&amp;id=dbb62ad84e" method="POST" class="d-flex justify-content-center">
+                    <div class="form-group pr-1">
+                        <input placeholder="Adresse email" type="email" name="EMAIL" class="form-control">
+                    </div>
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_8511147185b695bdad8e37930_946675474a" tabindex="-1" value=""></div>
+                    <div class="pl-1">
+                        <button type="submit" class="btn btn-default">Valider</button>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <a href="https://www.facebook.com/smeal.fr/" rel="noopener noreferrer nofollow"><img class="mx-1" src="https://www.smeal.fr/themes/smeal/assets/img/facebook.png" alt="Facebook"></a>
+                        <a href="https://www.instagram.com/smeal.fr" rel="noopener noreferrer nofollow"><img class="mx-1" src="https://www.smeal.fr/themes/smeal/assets/img/instagram.png" alt="Instagram"></a>
+                        <a href="https://twitter.com/smeal_fr" rel="noopener noreferrer nofollow"><img class="mx-1" src="https://www.smeal.fr/themes/smeal/assets/img/twitter.png" alt="Twitter"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row pt-3">
+                <div class="transporteur col-12 col-sm-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6 d-flex align-items-center">
+                                <img src="https://www.smeal.fr/themes/smeal/assets/img/mondial-relay.png" alt="Facebook">
+                            </div>
+                            <div class="col-6">
+                                <img src="https://www.smeal.fr/themes/smeal/assets/img/colissimo.png" alt="Facebook">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <p>Frais de port offert en France métropolitaine</p>
+                                <p>Livraison en France métropolitaine, Allemagne, Belgique, Espagne, Irlande, Italie, Luxembourg, Royaume-Uni, Suède.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu col-12 col-sm-8">
+                    <div class="row">
+                        <div class="col-6 col-sm-3">
+                            <img src="https://www.smeal.fr/themes/smeal/assets/img/Logo-Smeal.png" alt="Logo Smeal">
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <h4>Service Client</h4>
+                            <ul class="navbar-nav">
+                                <li class="nav-item"><a class="nav-link" href="https://www.smeal.fr/nous-contacter">Nous contacter</a></li>
+                                <li class="nav-item"><a class="nav-link" href="http://pro.smeal.fr/">Devenir distributeur</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://www.smeal.fr/faq">FAQ</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://www.smeal.fr/content/3-conditions-generales-ventes">CGU</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://www.smeal.fr/content/2-mentions-legales">Mentions légales</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <h4>Plan du site</h4>
+                            <ul class="navbar-nav">
+                                <li class="nav-item"><a class="nav-link" href="https://www.smeal.fr/">Accueil</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://www.smeal.fr/nos-repas">Nos repas</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://www.smeal.fr/qui-est-smeal">Qui est Smeal ?</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://www.smeal.fr/mon-compte">Mon compte</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://www.smeal.fr/blog">Blog</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <h4>Social</h4>
+                            <ul class="navbar-nav">
+                                <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/smeal.fr/" rel="noopener noreferrer nofollow">Facebook</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://www.instagram.com/smeal.fr" rel="noopener noreferrer nofollow">Instagram</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://twitter.com/smeal_fr" rel="noopener noreferrer nofollow">Twitter</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://fr.linkedin.com/company/smeal" rel="noopener noreferrer nofollow">Linkedin</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright d-flex align-items-center justify-content-center flex-column">
+            <div>
+                <img src="https://www.smeal.fr/themes/smeal/assets/img/logo-mastercard.png">
+                <img src="https://www.smeal.fr/themes/smeal/assets/img/logo-visa.png">
+            </div>
+            <p>
+                © 2018 Smeal, tous droits réservés
+            </p>
+        </div>
+        <section class="my-yotpo displayFooter hidden-print">
+
+
+
+
+            <!-- Yotpo badges -->
+            <!-- END Yotpo badges -->
+
+            <!-- Shop Score -->
+            <!-- END Shop Score -->
+
+        </section><div class="col-md-4 links">
+        <div class="row">
+        </div>
+    </div>
+
+    </footer>
+
+</footer>
