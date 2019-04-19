@@ -1,3 +1,4 @@
+<!--
 <div>
   <h1>CUSTOMER</h1>
   {{customer.id}} - {{customer.firstName}} - {{customer.lastName}} - {{customer.email}}
@@ -10,18 +11,37 @@
     <div>{{product.id}} - {{product.reference}} - {{product.priceTtc}}</div>
   </span>
 </div>
+-->
 
-<div *ngIf="invalidError" style="color:red">
-  {{ invalidError.message }}
-</div>
 
-<h2>Veuillez saisir les coordonnées bancaires </h2>
-<stripe-card
-  #stripeCard
-  (catch) = "onStripeError($event)"
-  [(invalid)] = "invalidError"
-  (tokenChange) = "setStripeToken($event)"
-></stripe-card>
 
-<button type="button" (click)="stripeCard.createToken(extraData)">Valider</button>
 
+<mat-card class="blue-card-info">
+  <mat-card-header>
+    <mat-card-title><span class="bold-green">Veuillez saisir les coordonnées bancaires</span></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <br/>
+    <div *ngIf="invalidError" style="color:red">
+      {{ invalidError.message }}
+    </div>
+    <br/>
+    <stripe-card
+            #stripeCard
+            (catch) = "onStripeError($event)"
+            [(invalid)] = "invalidError"
+            (tokenChange) = "setStripeToken($event)">
+    </stripe-card>
+  </mat-card-content>
+  <mat-card-actions>
+    <a (click)="stripeCard.createToken(extraData)" class="btn btn-primary btn-primary-commander pull-right" style="border-width: 0px">COMMANDER</a><br/>
+    <button mat-raised-button (click)="openDialog()">Open Dialog</button>
+  </mat-card-actions>
+  <mat-card-footer>
+    <p>
+      <i>
+        Avertissement: D'après la loi xx-xx-xxxx, les informations de votre carte bancaire sont enregistrées par un tiers. Smeal n'enregistre aucune informations sensible au paiement du client. (TODO: text à changer par Nian)
+      </i>
+    </p>
+  </mat-card-footer>
+</mat-card>

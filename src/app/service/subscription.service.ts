@@ -13,8 +13,8 @@ export class SubscriptionService {
   getCart(cartId: number) {
     return this.http.get<Cart>(this.url + '/cart/' + cartId);
   }
-  getCustomer(customerId: number) {
-    return this.http.get<Customer>(this.url + '/customer/' + customerId);
+  getCustomer(customerId: number, customerToken: string) {
+    return this.http.put<Customer>(this.url + '/customer/' + customerId, customerToken);
   }
 
   createSubscription(sub: Subscription) {
