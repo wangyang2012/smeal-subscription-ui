@@ -5,6 +5,7 @@ import {StripeScriptTag, StripeToken} from 'stripe-angular';
 import {Customer} from '../model/Customer';
 import {Cart} from '../model/Cart';
 import {Subscription} from '../model/Subscription';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-create-subscription',
@@ -17,10 +18,11 @@ export class CreateSubscriptionComponent implements OnInit {
   private customer: Customer = new Customer();
   private publishableKey = 'pk_test_ghenbt4wGKIXtmvhdHoSlUKk';
   private token = '';
+  private invalidError: Error;
+  private extraData = {};
 
-  constructor(private route: ActivatedRoute, private subscriptionService: SubscriptionService, public stripeScriptTag: StripeScriptTag) {
+  constructor(private route: ActivatedRoute, private subscriptionService: SubscriptionService, public stripeScriptTag: StripeScriptTag/*, private dialog: MatDialog*/) {
     this.stripeScriptTag.setPublishableKey( this.publishableKey );
-    console.log('set publishableKey');
   }
 
   ngOnInit() {
@@ -31,11 +33,19 @@ export class CreateSubscriptionComponent implements OnInit {
       });
 
       const customerId = params['customerId'];
-      this.subscriptionService.getCustomer(customerId).subscribe((response: Customer) => {
+      console.log('try params.customerId');
+      const customerToken = params['customerToken'];
+      this.subscriptionService.getCustomer(customerId, customerToken).subscribe((response: Customer) => {
         this.customer = response;
+        this.extraData = {
+          'name': this.customer.firstName + ' ' + this.customer.lastName.toUpperCase(),
+          'address_city': 'Paris',
+          'address_line1': '1, rue ABC',
+          'address_line2': '',
+          'address_state': '',
+          'address_zip': '75001'
+        };
       });
-
-      // this.subscriptionService.test().subscribe(response => console.log(response));
     });
   }
 
@@ -43,14 +53,6 @@ export class CreateSubscriptionComponent implements OnInit {
   //
   // }
 
-  extraData = {
-    'name': 'Yang',
-    'address_city': 'Paris',
-    'address_line1': '1, rue ABC',
-    'address_line2': '',
-    'address_state': '',
-    'address_zip': '75001'
-  }
 
   onStripeInvalid( error: Error ) {
     console.log('Validation Error', error);
@@ -65,10 +67,22 @@ export class CreateSubscriptionComponent implements OnInit {
     sub.stripeToken = token.id;
     this.subscriptionService.createSubscription(sub).subscribe(response => {
       alert('Paiement réussi!');
+      this.openDialog();
     });
   }
 
   onStripeError( error: Error ){
     console.error('Stripe error', this.token);
+  }
+
+
+  openDialog(): void {
+    // const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+    //   width: '250px'
+    // });
+    //
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    // });
   }
 }
