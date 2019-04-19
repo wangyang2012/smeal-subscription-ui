@@ -6,8 +6,8 @@ import {Subscription} from '../model/Subscription';
 
 @Injectable()
 export class SubscriptionService {
-  // private url = 'http://54.38.189.20:8080/subscription';
-  private url = 'http://localhost:9090';
+  private url = 'http://54.38.189.20:8080/subscription';
+  // private url = 'http://localhost:9090';
   constructor(private http: HttpClient) { }
 
   getCart(cartId: number) {
