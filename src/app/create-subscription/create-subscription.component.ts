@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SubscriptionService} from '../service/subscription.service';
 import {StripeScriptTag, StripeToken} from 'stripe-angular';
 import {Customer} from '../model/Customer';
@@ -21,7 +21,7 @@ export class CreateSubscriptionComponent implements OnInit {
   private invalidError: Error;
   private extraData = {};
 
-  constructor(private route: ActivatedRoute, private subscriptionService: SubscriptionService, public stripeScriptTag: StripeScriptTag/*, private dialog: MatDialog*/) {
+  constructor(private route: ActivatedRoute, private subscriptionService: SubscriptionService, public stripeScriptTag: StripeScriptTag, private router: Router) {
     this.stripeScriptTag.setPublishableKey( this.publishableKey );
   }
 
@@ -66,8 +66,7 @@ export class CreateSubscriptionComponent implements OnInit {
     sub.userName = this.customer.firstName + ' ' + this.customer.lastName;
     sub.stripeToken = token.id;
     this.subscriptionService.createSubscription(sub).subscribe(response => {
-      alert('Paiement réussi!');
-      this.openDialog();
+      this.router.navigate(['/thanks']);
     });
   }
 
@@ -76,13 +75,7 @@ export class CreateSubscriptionComponent implements OnInit {
   }
 
 
-  openDialog(): void {
-    // const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-    //   width: '250px'
-    // });
-    //
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    // });
+  testDirection(): void {
+    this.router.navigate(['/thanks']);
   }
 }

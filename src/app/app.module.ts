@@ -8,11 +8,13 @@ import {SubscriptionService} from './service/subscription.service';
 import {HttpClientModule} from '@angular/common/http';
 import {Module as StripeModule} from 'stripe-angular';
 import {MatButtonModule, MatCardModule, MatDialogModule} from '@angular/material';
+import {ThanksComponent} from './thanks/thanks.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateSubscriptionComponent
+    CreateSubscriptionComponent,
+    ThanksComponent
   ],
   imports: [
     BrowserModule,
