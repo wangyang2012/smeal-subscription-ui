@@ -28,14 +28,24 @@ export class CreateSubscriptionComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const cartId = params['cartId'];
+      const customerId = params['customerId'];
+      const customerToken = params['customerToken'];
+
+      if (!cartId || !customerId || !customerToken ) {
+        this.showError();
+      }
+
       this.subscriptionService.getCart(cartId).subscribe((response: Cart) => {
         this.cart = response;
+        if (this.cart.idCustomer != customerId) {
+          this.showError();
+        }
       });
 
-      const customerId = params['customerId'];
-      console.log('try params.customerId');
-      const customerToken = params['customerToken'];
-      this.subscriptionService.getCustomer(customerId, customerToken).subscribe((response: Customer) => {
+      this.subscriptionService.getCustomer(customerId, cartId, customerToken).subscribe((response: Customer) => {
+        if (response == null) {
+          this.showError();
+        }
         this.customer = response;
         this.extraData = {
           'name': this.customer.firstName + ' ' + this.customer.lastName.toUpperCase(),
@@ -47,15 +57,6 @@ export class CreateSubscriptionComponent implements OnInit {
         };
       });
     });
-  }
-
-  // function createSubscription() {
-  //
-  // }
-
-
-  onStripeInvalid( error: Error ) {
-    console.log('Validation Error', error);
   }
 
   setStripeToken( token: StripeToken) {
@@ -71,11 +72,11 @@ export class CreateSubscriptionComponent implements OnInit {
   }
 
   onStripeError( error: Error ){
-    console.error('Stripe error', this.token);
+    this.showError();
   }
 
-
-  testDirection(): void {
-    this.router.navigate(['/thanks']);
+  showError() {
+    this.router.navigate(['/error']);
   }
+
 }

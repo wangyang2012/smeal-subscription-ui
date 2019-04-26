@@ -9,12 +9,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {Module as StripeModule} from 'stripe-angular';
 import {MatButtonModule, MatCardModule, MatDialogModule} from '@angular/material';
 import {ThanksComponent} from './thanks/thanks.component';
+import {ErrorComponent} from './error/error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateSubscriptionComponent,
-    ThanksComponent
+    ThanksComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
