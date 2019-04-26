@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SubscriptionService} from '../service/subscription.service';
 import {StripeScriptTag, StripeToken} from 'stripe-angular';
 import {Customer} from '../model/Customer';
@@ -21,21 +21,31 @@ export class CreateSubscriptionComponent implements OnInit {
   private invalidError: Error;
   private extraData = {};
 
-  constructor(private route: ActivatedRoute, private subscriptionService: SubscriptionService, public stripeScriptTag: StripeScriptTag/*, private dialog: MatDialog*/) {
+  constructor(private route: ActivatedRoute, private subscriptionService: SubscriptionService, public stripeScriptTag: StripeScriptTag, private router: Router) {
     this.stripeScriptTag.setPublishableKey( this.publishableKey );
   }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const cartId = params['cartId'];
+      const customerId = params['customerId'];
+      const customerToken = params['customerToken'];
+
+      if (!cartId || !customerId || !customerToken ) {
+        this.showError();
+      }
+
       this.subscriptionService.getCart(cartId).subscribe((response: Cart) => {
         this.cart = response;
+        if (this.cart.idCustomer != customerId) {
+          this.showError();
+        }
       });
 
-      const customerId = params['customerId'];
-      console.log('try params.customerId');
-      const customerToken = params['customerToken'];
-      this.subscriptionService.getCustomer(customerId, customerToken).subscribe((response: Customer) => {
+      this.subscriptionService.getCustomer(customerId, cartId, customerToken).subscribe((response: Customer) => {
+        if (response == null) {
+          this.showError();
+        }
         this.customer = response;
         this.extraData = {
           'name': this.customer.firstName + ' ' + this.customer.lastName.toUpperCase(),
@@ -49,15 +59,6 @@ export class CreateSubscriptionComponent implements OnInit {
     });
   }
 
-  // function createSubscription() {
-  //
-  // }
-
-
-  onStripeInvalid( error: Error ) {
-    console.log('Validation Error', error);
-  }
-
   setStripeToken( token: StripeToken) {
     console.log('Stripe token', token);
     const sub = new Subscription();
@@ -66,23 +67,16 @@ export class CreateSubscriptionComponent implements OnInit {
     sub.userName = this.customer.firstName + ' ' + this.customer.lastName;
     sub.stripeToken = token.id;
     this.subscriptionService.createSubscription(sub).subscribe(response => {
-      alert('Paiement réussi!');
-      this.openDialog();
+      this.router.navigate(['/thanks']);
     });
   }
 
   onStripeError( error: Error ){
-    console.error('Stripe error', this.token);
+    this.showError();
   }
 
-
-  openDialog(): void {
-    // const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-    //   width: '250px'
-    // });
-    //
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    // });
+  showError() {
+    this.router.navigate(['/error']);
   }
+
 }
